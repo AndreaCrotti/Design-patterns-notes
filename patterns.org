@@ -1,0 +1,67 @@
+Summary and some thought taken from the "Design patterns" book.
+
+
+* Hollywood principle
+  *Don't call us, we'll call you*
+
+* Template method
+  Used for abstracting some algorithms where some parts of it are always the same.
+
+** Hooks
+   We can also add a *hook* which actually does nothing but allows to enter the algorithm where you want to.
+   Is declared in the abstract class, but with empty or default implementation.
+
+** Usage
+   This pattern is very used for example in Frameworks, where the framework controls how something gets done, leaving you the freedom to specify the details.
+
+
+* Iterator
+  We want to be able to encapsulate the iteration over different objects.
+
+#+begin_src java
+  for (int i = 0; i < arr.size(); i++) { ... }
+#+end_src
+  
+  Gets transformed in something like
+#+begin_src java
+Iterator iterator = menu.createIterator();
+while (iterator.hasNext()) {
+    MenuItem item = (MenuItem)iterator.next();
+}
+#+end_src
+
+  So in short we need to implement something in our structure that returns an iterator.
+
+** Iterator pattern
+   *The iterator pattern* provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation.
+   
+   The remove method in java.util.Iterator is considered *optional*.
+
+** Null iterator
+   We could have an iterator that always returns /false/ when hasNext() is called.
+
+* Composite patterns
+  *The composite pattern* allows you to compose objects into tree structures to represent part-whole hierarchies.
+  Composite lets clients treat individual objects and compositions of objects uniformly.
+
+  We need to be able to *ignore* the differences between compositions of objects and individual objects.
+  Composite allows to create a recursive structure.
+
+  Composite pattern manages a hierarchy AND it performs operations related to the elements.
+  It violates the SRP getting /transparency/ for that, because it allows the component interface to contain the child management operations and the leaf operations.
+
+** Example
+   An example of a composite pattern is a GUI library, we have composite objects that can also contain other objects, and leaf objects which are the objects we want to actually display.
+
+* Single responsibility principle (SRP)
+  *A class should have only ONE reason to change*
+  Every responsibility of a class is an area of possible change.
+  More than one responsibility means more than one area to change.
+  
+  We say that a module or class has *high cohesion* when it's designed around a set of related functions, low cohesion otherwise.
+
+
+* State pattern
+  The *Stage pattern* allows an object to alter its behaviour when its internal state changes.
+  The object will appear to change its class.
+  
